@@ -1,0 +1,204 @@
+// ==UserScript==
+// @name         BGG Hover Preview via API
+// @namespace    http://tampermonkey.net/
+// @version      0.2
+// @description  Show a preview of a boardgame when hovering a BGG link using XML API2
+// @match        https://boardgamegeek.com/*
+// @match        https://www.boardgamegeek.com/*
+// @grant        GM_xmlhttpRequest
+// @connect      boardgamegeek.com
+// @connect      api.geekdo.com
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    let previewBox = null;
+    let lastRequestTime = 0;
+
+    // Rate-limit: ensure at least `apiDelay` ms between API calls
+    const apiDelay = 5 * 1000; // 5 seconds
+
+    // shared parser
+    const parser = new DOMParser();
+
+    // supported thing types
+    const thingTypes = [
+        "boardgame",
+        "boardgameaccessory",
+        "boardgameexpansion"
+    ];
+
+    const thingTypeLinkSelector = thingTypes.map((thingType) => {
+        return `a[href*="/${thingType}/"]:not([data-preview-attached=true])`;
+    }).join(",");
+
+    const thingTypeAndIdRegEx = new RegExp(`\/(${thingTypes.join("|")})\/(\\d+)\/`);
+
+    function extractThingTypeAndId(href) {
+        const m = href.match(thingTypeAndIdRegEx);
+        console.log(m);
+        return m ? {type: m[1], id: m[2]} : {};
+    }
+
+    function createPreviewBox() {
+        previewBox = document.createElement("div");
+        previewBox.style.position = "absolute";
+        previewBox.style.zIndex = 99999;
+        previewBox.style.border = "1px solid #888";
+        previewBox.style.background = "#fff";
+        previewBox.style.padding = "8px";
+        previewBox.style.maxWidth = "320px";
+        previewBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
+        previewBox.style.display = "none";
+        previewBox.style.fontFamily = "sans-serif";
+        document.body.appendChild(previewBox);
+    }
+
+    function showPreviewAt(linkEl, html) {
+        if (!previewBox) createPreviewBox();
+        previewBox.innerHTML = html;
+        const rect = linkEl.getBoundingClientRect();
+        // position below link
+        previewBox.style.top = (rect.bottom + window.scrollY + 5) + "px";
+        previewBox.style.left = (rect.left + window.scrollX) + "px";
+        previewBox.style.display = "block";
+    }
+
+    function hidePreview() {
+        if (previewBox) {
+            previewBox.style.display = "none";
+        }
+    }
+
+    function xmlToText(node) {
+        return node && node.textContent ? node.textContent : "";
+    }
+
+    function parseThingXml(xmlText) {
+        const doc = parser.parseFromString(xmlText, "application/xml");
+        const item = doc.querySelector("item");
+        if (!item) return null;
+
+        const obj = {};
+        obj.id = item.getAttribute("id");
+        const nameElem = item.querySelector("name[type='primary']") || item.querySelector("name");
+        obj.name = nameElem ? nameElem.getAttribute("value") : "";
+        obj.year = xmlToText(item.querySelector("yearpublished"));
+        obj.thumbnail = xmlToText(item.querySelector("thumbnail"));
+        obj.image = xmlToText(item.querySelector("image"));
+        obj.minplayers = xmlToText(item.querySelector("minplayers"));
+        obj.maxplayers = xmlToText(item.querySelector("maxplayers"));
+        obj.playingtime = xmlToText(item.querySelector("playingtime"));
+        obj.description = xmlToText(item.querySelector("description"));
+
+        const avg = item.querySelector("statistics ratings average");
+        obj.average = avg ? avg.getAttribute("value") : "";
+
+        return obj;
+    }
+
+    function buildPreviewHtml(data) {
+        if (!data) return "<div>You must wait 5 seconds before hovering on the next link (a BGG's API restriction)</div>";
+
+        const imgThumb = data.thumbnail ? `` : "";
+        const imgFull = data.image ? `` : "";
+        // show thumb first, then full image if exists
+        const imgSection = imgFull ? imgFull : imgThumb;
+
+        const players = (data.minplayers && data.maxplayers) ? `${data.minplayers}–${data.maxplayers}` : "";
+        const time = data.playingtime ? `${data.playingtime} min` : "";
+        const avg = data.average ? data.average : "N/A";
+
+        // truncate description
+        let desc = data.description || "";
+        desc = desc.replace(/\\n|\\r/g, " ").trim();
+        if (desc.length > 300) desc = desc.slice(0, 300) + "…";
+
+        return `
+            <div>
+                <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">
+                    ${data.name} ${data.year ? `(${data.year})` : ""}
+                </div>
+                ${imgSection}
+                <div style="font-size: 13px; margin: 4px 0;">
+                    <strong>Rating:</strong> ${avg}  |
+                    <strong>Players:</strong> ${players}  |
+                    <strong>Time:</strong> ${time}
+                </div>
+                <div style="font-size: 12px; color: #333;">${desc}</div>
+            </div>
+        `;
+    }
+
+    function fetchThing(type, id, callback) {
+        const now = Date.now();
+        if (now - lastRequestTime < apiDelay) {
+            // too soon; skip or delay
+            // you could queue or throttle; for now, skip
+            callback(null);
+            return;
+        }
+        lastRequestTime = now;
+
+        const url = `https://boardgamegeek.com/xmlapi2/thing?id=${encodeURIComponent(id)}&stats=1&foo=${encodeURIComponent(type)}`;
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: url,
+            headers: {
+                "Accept": "application/xml"
+            },
+            onload: function(resp) {
+                if (resp.status === 200) {
+                    const data = parseThingXml(resp.responseText);
+                    callback(data);
+                } else if (resp.status === 202) {
+                    // queued; try again after slight delay
+                    setTimeout(() => {
+                        fetchThing(type, id, callback);
+                    }, 1500);
+                } else {
+                    console.warn("BGG API returned status", resp.status);
+                    callback(null);
+                }
+            },
+            onerror: function(err) {
+                console.error("BGG API request error:", err);
+                callback(null);
+            }
+        });
+    }
+
+    function attachHover(link) {
+        let hoverTimer;
+
+        const {type, id} = extractThingTypeAndId(link.href);
+        link.setAttribute("data-preview-attached", "true");
+
+        link.addEventListener("mouseenter", () => {
+            hoverTimer = setTimeout(() => {
+                fetchThing(type, id, (data) => {
+                    const html = buildPreviewHtml(data);
+                    showPreviewAt(link, html);
+                });
+            }, 300);
+        });
+
+        link.addEventListener("mouseleave", () => {
+            clearTimeout(hoverTimer);
+            hidePreview();
+        });
+    }
+
+    function init() {
+        const links = document.querySelectorAll(thingTypeLinkSelector);
+        links.forEach(link => {
+            attachHover(link);
+        });
+    }
+
+    init();
+    const mo = new MutationObserver(init);
+    mo.observe(document.body, { subtree: true, childList: true });
+
+})();
