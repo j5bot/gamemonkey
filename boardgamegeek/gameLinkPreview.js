@@ -8,6 +8,8 @@
 // @grant        GM_xmlhttpRequest
 // @connect      boardgamegeek.com
 // @connect      api.geekdo.com
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameLinkPreview.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameLinkPreview.js
 // ==/UserScript==
 
 (function() {
