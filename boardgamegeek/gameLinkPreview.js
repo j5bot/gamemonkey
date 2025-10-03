@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGG Hover Preview via API
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Show a preview of a boardgame when hovering a BGG link using XML API2
 // @match        https://boardgamegeek.com/*
 // @match        https://www.boardgamegeek.com/*
@@ -29,18 +29,18 @@
     const thingTypes = [
         "boardgame",
         "boardgameaccessory",
-        "boardgameexpansion"
+        "boardgameexpansion",
+        "thing"
     ];
 
     const thingTypeLinkSelector = thingTypes.map((thingType) => {
         return `a[href*="/${thingType}/"]:not([data-preview-attached=true])`;
     }).join(",");
 
-    const thingTypeAndIdRegEx = new RegExp(`\/(${thingTypes.join("|")})\/(\\d+)\/`);
+    const thingTypeAndIdRegEx = new RegExp(`\/(${thingTypes.join("|")})\/(\\d+)(\/.+|)$`);
 
     function extractThingTypeAndId(href) {
         const m = href.match(thingTypeAndIdRegEx);
-        console.log(m);
         return m ? {type: m[1], id: m[2]} : {};
     }
 
@@ -128,16 +128,8 @@
     }
 
     function fetchThing(type, id, callback) {
-        const now = Date.now();
-        if (now - lastRequestTime < apiDelay) {
-            // too soon; skip or delay
-            // you could queue or throttle; for now, skip
-            callback(null);
-            return;
-        }
-        lastRequestTime = now;
-
         const url = `https://boardgamegeek.com/xmlapi2/thing?id=${encodeURIComponent(id)}&stats=1`;
+
         const onload = function(resp) {
             if (resp.status === 200) {
                 const data = parseThingXml(resp.responseText);
@@ -158,6 +150,15 @@
             onload(cached);
             return;
         }
+
+        const now = Date.now();
+        if (now - lastRequestTime < apiDelay) {
+            // too soon; skip or delay
+            // you could queue or throttle; for now, skip
+            callback(null);
+            return;
+        }
+        lastRequestTime = now;
 
         GM_xmlhttpRequest({
             method: "GET",
