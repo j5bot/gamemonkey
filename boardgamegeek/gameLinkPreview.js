@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGG Hover Preview via API
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.1
 // @description  Show a preview of a boardgame when hovering a BGG link using XML API2
 // @match        https://boardgamegeek.com/*
 // @match        https://www.boardgamegeek.com/*
@@ -15,6 +15,9 @@
 
     let previewBox = null;
     let lastRequestTime = 0;
+
+    // a map of all the API call results
+    let dataMap = {};
 
     // Rate-limit: ensure at least `apiDelay` ms between API calls
     const apiDelay = 5 * 1000; // 5 seconds
@@ -43,15 +46,8 @@
 
     function createPreviewBox() {
         previewBox = document.createElement("div");
-        previewBox.style.position = "absolute";
-        previewBox.style.zIndex = 99999;
-        previewBox.style.border = "1px solid #888";
-        previewBox.style.background = "#fff";
-        previewBox.style.padding = "8px";
-        previewBox.style.maxWidth = "320px";
+        previewBox.className = "tw-absolute tw-z-1000 tw-bg-white tw-max-w-sm tw-hide tw-p-2 tw-rounded-md border-gray-500";
         previewBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
-        previewBox.style.display = "none";
-        previewBox.style.fontFamily = "sans-serif";
         document.body.appendChild(previewBox);
     }
 
@@ -101,8 +97,8 @@
     function buildPreviewHtml(data) {
         if (!data) return "<div>You must wait 5 seconds before hovering on the next link (a BGG's API restriction)</div>";
 
-        const imgThumb = data.thumbnail ? `` : "";
-        const imgFull = data.image ? `` : "";
+        const imgThumb = data.thumbnail ? `<img src="${data.thumbnail}" />` : "";
+        const imgFull = data.image ? `<img src="${data.image}" />` : "";
         // show thumb first, then full image if exists
         const imgSection = imgFull ? imgFull : imgThumb;
 
@@ -117,16 +113,16 @@
 
         return `
             <div>
-                <div style="font-size: 16px; font-weight: bold; margin-bottom: 4px;">
+                <div class="tw-text-base tw-font-semibold tw-mb-0.5">
                     ${data.name} ${data.year ? `(${data.year})` : ""}
                 </div>
                 ${imgSection}
-                <div style="font-size: 13px; margin: 4px 0;">
-                    <strong>Rating:</strong> ${avg}  |
-                    <strong>Players:</strong> ${players}  |
-                    <strong>Time:</strong> ${time}
+                <div class="tw-text-sm tw-ml-0.5 tw-mr-0.5 tw-flex tw-justify-between">
+                    <div><span class="tw-font-semibold">Rating:</span> ${avg}</div>
+                    <div><span class="tw-font-semibold">Players:</span> ${players}</div>
+                    <div><span class="tw-font-semibold">Time:</span> ${time}</div>
                 </div>
-                <div style="font-size: 12px; color: #333;">${desc}</div>
+                <div class="tw-text-xs color-gray-400">${desc}</div>
             </div>
         `;
     }
@@ -141,27 +137,35 @@
         }
         lastRequestTime = now;
 
-        const url = `https://boardgamegeek.com/xmlapi2/thing?id=${encodeURIComponent(id)}&stats=1&foo=${encodeURIComponent(type)}`;
+        const url = `https://boardgamegeek.com/xmlapi2/thing?id=${encodeURIComponent(id)}&stats=1`;
+        const onload = function(resp) {
+            if (resp.status === 200) {
+                const data = parseThingXml(resp.responseText);
+                callback(data);
+            } else if (resp.status === 202) {
+                // queued; try again after slight delay
+                setTimeout(() => {
+                    fetchThing(type, id, callback);
+                }, 1500);
+            } else {
+                callback(null);
+            }
+            dataMap[url] = resp;
+        };
+
+        const cached = dataMap[url];
+        if (cached) {
+            onload(cached);
+            return;
+        }
+
         GM_xmlhttpRequest({
             method: "GET",
             url: url,
             headers: {
                 "Accept": "application/xml"
             },
-            onload: function(resp) {
-                if (resp.status === 200) {
-                    const data = parseThingXml(resp.responseText);
-                    callback(data);
-                } else if (resp.status === 202) {
-                    // queued; try again after slight delay
-                    setTimeout(() => {
-                        fetchThing(type, id, callback);
-                    }, 1500);
-                } else {
-                    console.warn("BGG API returned status", resp.status);
-                    callback(null);
-                }
-            },
+            onload,
             onerror: function(err) {
                 console.error("BGG API request error:", err);
                 callback(null);
@@ -169,7 +173,7 @@
         });
     }
 
-    function attachHover(link) {
+    function attachHover(link, index, array) {
         let hoverTimer;
 
         const {type, id} = extractThingTypeAndId(link.href);
@@ -192,8 +196,8 @@
 
     function init() {
         const links = document.querySelectorAll(thingTypeLinkSelector);
-        links.forEach(link => {
-            attachHover(link);
+        links.forEach((link, index, array) => {
+            attachHover(link, index, array);
         });
     }
 
