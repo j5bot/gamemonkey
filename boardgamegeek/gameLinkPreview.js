@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGG Hover Preview via API
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.2.2
 // @description  Show a preview of a boardgame when hovering a BGG link using XML API2
 // @match        https://boardgamegeek.com/*
 // @match        https://www.boardgamegeek.com/*
