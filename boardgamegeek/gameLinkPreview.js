@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGG Hover Preview via API
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.2.1
 // @description  Show a preview of a boardgame when hovering a BGG link using XML API2
 // @match        https://boardgamegeek.com/*
 // @match        https://www.boardgamegeek.com/*
@@ -46,7 +46,8 @@
 
     function createPreviewBox() {
         previewBox = document.createElement("div");
-        previewBox.className = "tw-absolute tw-z-1000 tw-bg-white tw-max-w-sm tw-hide tw-p-2 tw-rounded-md border-gray-500";
+        previewBox.className = "tw-absolute tw-z-1000 tw-bg-white tw-max-w-sm tw-hide tw-p-2" +
+                               " tw-rounded-md tw-border-gray-500";
         previewBox.style.boxShadow = "0 4px 12px rgba(0,0,0,0.2)";
         document.body.appendChild(previewBox);
     }
@@ -68,7 +69,10 @@
     }
 
     function xmlToText(node) {
-        return node && node.textContent ? node.textContent : "";
+        if (!node) {
+            return "";
+        }
+        return node.textContent ? node.textContent : node.getAttribute("value") ?? "";
     }
 
     function parseThingXml(xmlText) {
@@ -79,7 +83,7 @@
         const obj = {};
         obj.id = item.getAttribute("id");
         const nameElem = item.querySelector("name[type='primary']") || item.querySelector("name");
-        obj.name = nameElem ? nameElem.getAttribute("value") : "";
+        obj.name = xmlToText(nameElem);
         obj.year = xmlToText(item.querySelector("yearpublished"));
         obj.thumbnail = xmlToText(item.querySelector("thumbnail"));
         obj.image = xmlToText(item.querySelector("image"));
@@ -97,8 +101,8 @@
     function buildPreviewHtml(data) {
         if (!data) return "<div>You must wait 5 seconds before hovering on the next link (a BGG's API restriction)</div>";
 
-        const imgThumb = data.thumbnail ? `<img src="${data.thumbnail}" />` : "";
-        const imgFull = data.image ? `<img src="${data.image}" />` : "";
+        const imgThumb = data.thumbnail ? `<img src="${data.thumbnail}"  alt="${data.name}"/>` : "";
+        const imgFull = data.image ? `<img src="${data.image}" alt="${data.name}"/>` : "";
         // show thumb first, then full image if exists
         const imgSection = imgFull ? imgFull : imgThumb;
 
@@ -119,8 +123,8 @@
                 ${imgSection}
                 <div class="tw-text-sm tw-ml-0.5 tw-mr-0.5 tw-flex tw-justify-between">
                     <div><span class="tw-font-semibold">Rating:</span> ${avg}</div>
-                    <div><span class="tw-font-semibold">Players:</span> ${players}</div>
-                    <div><span class="tw-font-semibold">Time:</span> ${time}</div>
+                    ${players ? `<div><span class="tw-font-semibold">Players:</span> ${players}</div>` : ""}
+                    ${time ? `<div><span class="tw-font-semibold">Time:</span> ${time}</div>` : ""}
                 </div>
                 <div class="tw-text-xs color-gray-400">${desc}</div>
             </div>
