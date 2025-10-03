@@ -3,6 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.2.2
 // @description  Show a preview of a boardgame when hovering a BGG link using XML API2
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
 // @match        https://boardgamegeek.com/*
 // @match        https://www.boardgamegeek.com/*
 // @grant        GM_xmlhttpRequest
