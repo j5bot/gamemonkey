@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Script to collect images from geeklist item entries to put them into grids for making screenshots
-// @author       You
+// @author       j5bot
 // @match        https://boardgamegeek.com/geeklist/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
 // @grant        none
