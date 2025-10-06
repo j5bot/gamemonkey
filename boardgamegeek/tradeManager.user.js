@@ -8,8 +8,8 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
 // @grant        GM_setValue
 // @grant        GM_getValue
-// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/tradeManager.js
-// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/tradeManager.js
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/tradeManager.user.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/tradeManager.user.js
 // ==/UserScript==
 
 /* Original script by @Kempeth, with updates by j5bot */

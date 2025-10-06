@@ -8,8 +8,8 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
 // @grant        none
 // @require      https://cdn.jsdelivr.net/npm/minimasonry@1.3.2/build/minimasonry.min.js
-// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/geeklistThumbCollageMasonry.js
-// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/geeklistThumbCollageMasonry.js
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/geeklistThumbCollageMasonry.user.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/geeklistThumbCollageMasonry.user.js
 // ==/UserScript==
 
 (function() {

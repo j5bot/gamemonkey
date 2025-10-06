@@ -7,8 +7,8 @@
 // @match        https://boardgamegeek.com/collection/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/filterDoNotBuy.js
-// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/filterDoNotBuy.js
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/filterDoNotBuy.user.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/filterDoNotBuy.user.js
 // ==/UserScript==
 
 (function() {

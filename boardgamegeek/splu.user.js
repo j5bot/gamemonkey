@@ -6,8 +6,8 @@
 // @author       dazeysan, j5bot
 // @match        https://boardgamegeek.com/boardgame/*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/splu.js
-// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/splu.js
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/splu.user.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/splu.user.js
 // ==/UserScript==
 
 (function() {

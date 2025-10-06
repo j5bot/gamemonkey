@@ -6,8 +6,8 @@
 // @author       j5bot
 // @match        https://boardgamegeek.com/*/*/*/files*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
-// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rulesFilesSorter.js
-// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rulesFilesSorter.js
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rulesFilesSorter.user.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rulesFilesSorter.user.js
 // @grant        none
 // ==/UserScript==
 
