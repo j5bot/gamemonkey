@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         BGG Rules Files Sorter
-// @namespace    http://tampermonkey.net/
+// @namespace    http://github.com/j5bot/gamemonkey
 // @version      0.1
 // @description  shows first 50 files and attempts to sort official rules / rules to the top
 // @author       j5bot

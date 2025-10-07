@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         BGG Trade Manager
-// @namespace    http://tampermonkey.net/
+// @namespace    http://github.com/j5bot/gamemonkey
 // @version      0.3
 // @description  Modifies the collection view on Board Game Geek to conveniently project shipping costs. Important note: for this script to run you must filter your collection for game with the "For Trade" flag, include the columns "private information" and "title" and then follow the permalink to that view.
 // @author       Kempeth, j5bot

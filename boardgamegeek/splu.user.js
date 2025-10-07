@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGG SPLU Userscript Version
-// @namespace    http://tampermonkey.net/
-// @version      0.1.1
+// @namespace    http://github.com/j5bot/gamemonkey
+// @version      0.1.2
 // @description  improves the play logging experience on BGG
 // @author       dazeysan, j5bot
 // @match        https://boardgamegeek.com/boardgame/*

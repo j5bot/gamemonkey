@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         BGG Geeklist Thumb Collage
-// @namespace    http://tampermonkey.net/
-// @version      0.1
+// @name         BGG Geeklist Thumb Collage (Square)
+// @namespace    http://github.com/j5bot/gamemonkey
+// @version      0.2
 // @description  Script to collect images from geeklist item entries to put them into grids for making screenshots
 // @author       j5bot
 // @match        https://boardgamegeek.com/geeklist/*
@@ -39,6 +39,7 @@
     `;
 
     let imgCount = 0;
+    let splitCount = 16;
 
     function copyImages() {
         const imgs = page.getElementsByClassName('geeklist-item__img');
@@ -61,7 +62,7 @@
             box.appendChild(container);
 
             imgCount++;
-            if (imgCount % 16 === 0) {
+            if (imgCount % splitCount === 0) {
                 box.appendChild(document.createElement('hr'));
             }
         });
@@ -78,9 +79,19 @@
     gatherImages.onclick = copyImages;
     giBox.appendChild(gatherImages);
 
-    const splitImages = document.createElement('button');
-    splitImages.innerText = 'SPLIT';
-    giBox.appendChild(splitImages);
+    const splitCountInput = document.createElement('input');
+    splitCountInput.type = 'text';
+    splitCountInput.value = '16';
+    splitCountInput.placeholder = 'Grid Elements';
+    splitCountInput.style.border = 'solid 1px blue';
+    splitCountInput.style.padding = '3px';
+    splitCountInput.onblur = (event) => {
+        splitCount = event.currentTarget.value;
+        splitCount = parseInt(splitCount, 10);
+        splitCount = isNaN(splitCount) ? 16 : splitCount;
+    };
+    giBox.appendChild(splitCountInput);
+
 
     const styleEl = document.createElement('style');
     styleEl.innerText = styles;
