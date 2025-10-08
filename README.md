@@ -23,6 +23,13 @@ Install the TamperMonkey browser extension:
 
 ### BoardGameGeek
 
+##### [eBay Alternate Names US-Only Search Link](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/ebayAltNamesSearchLink.user.js)
+
+When viewing the eBay marketplace page for an item, change the '+ ADD' button into a search 
+button that opens a US-only search which includes searching for alternate names for the game.
+
+Includes BGG's eBay parameters so that they continue to get commissions from sales.
+
 ##### [Filter / Sort 'Do Not Buy' in Collections](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/filterDoNotBuy.user.js)
 
 When viewing a collection in a list view, with the status column visible, move wishlist 'Do Not 
