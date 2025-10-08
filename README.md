@@ -23,6 +23,11 @@ Install the TamperMonkey browser extension:
 
 ### BoardGameGeek
 
+##### [Auto-Caption Uploads from Filename](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/autoCaptionUploads.user.js)
+
+When uploading files to BGG, extract the filename up to the first '.' and set the caption to 
+that string automatically
+
 ##### [eBay Alternate Names US-Only Search Link](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/ebayAltNamesSearchLink.user.js)
 
 When viewing the eBay marketplace page for an item, change the '+ ADD' button into a search 
