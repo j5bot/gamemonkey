@@ -77,10 +77,18 @@ the grid, you can take a screenshot for use elsewhere.
 
 4. Screenshot!
 
+##### [Large Gallery Collection Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/largeGalleryCollectionLinks.user.js)
+
+Changes links in user profiles to show a 'large gallery' cover view instead of text list by default
+
 ##### [Rules File Sorter](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rulesFilesSorter.user.js)
 
 When viewing file pages, attempts to sort official rules / rules to the top (for the current 
 page of files).
+
+##### [Small Gallery Collection Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/smallGalleryCollectionLinks.user.js)
+
+Changes links in user profiles to show a 'small gallery' cover view instead of text list by default
 
 ##### [SPLU Userscript](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/splu.user.js)
 
