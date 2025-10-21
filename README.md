@@ -28,6 +28,11 @@ Install the TamperMonkey browser extension:
 When uploading files to BGG, extract the filename up to the first '.' and set the caption to 
 that string automatically
 
+##### [Default Wishlist Sort to Ascending](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/sortWishlistLinks.user.js)
+
+For links to wishlists from a user's profile page, default the sort to ascending by wishlist 
+priority.
+
 ##### [eBay Alternate Names US-Only Search Link](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/ebayAltNamesSearchLink.user.js)
 
 When viewing the eBay marketplace page for an item, change the '+ ADD' button into a search 
