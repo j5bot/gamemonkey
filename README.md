@@ -84,7 +84,11 @@ the grid, you can take a screenshot for use elsewhere.
 
 ##### [Large Gallery Collection Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/largeGalleryCollectionLinks.user.js)
 
-Changes links in user profiles to show a 'large gallery' cover view instead of text list by default
+Changes links in user profiles to show a 'large gallery' cover view instead of text list by default.
+
+##### [Remember Dashboard State](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rememberDashboardState.user.js)
+
+Remember and restore dashboard dropdowns state between visits to the dashboard.
 
 ##### [Rules File Sorter](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rulesFilesSorter.user.js)
 
@@ -93,7 +97,7 @@ page of files).
 
 ##### [Small Gallery Collection Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/smallGalleryCollectionLinks.user.js)
 
-Changes links in user profiles to show a 'small gallery' cover view instead of text list by default
+Changes links in user profiles to show a 'small gallery' cover view instead of text list by default.
 
 ##### [SPLU Userscript](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/splu.user.js)
 
