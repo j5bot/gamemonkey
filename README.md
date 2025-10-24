@@ -82,6 +82,10 @@ the grid, you can take a screenshot for use elsewhere.
 
 4. Screenshot!
 
+##### [Image Upload Preview](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/imageUploadPreview.user.js)
+
+Add previews to image file uploads.
+
 ##### [Large Gallery Collection Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/largeGalleryCollectionLinks.user.js)
 
 Changes links in user profiles to show a 'large gallery' cover view instead of text list by default.
