@@ -90,6 +90,15 @@ Add previews to image file uploads.
 
 Changes links in user profiles to show a 'large gallery' cover view instead of text list by default.
 
+##### [Profile Dropdown Links without Expansions](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/profileDropdownLinksWithoutExpansions.user.js)
+
+Changes links to collection and wishlist in profile dropdown to exclude expansions.
+
+##### [Profile Games Links without Expansions](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/profileGameLinksWithoutExpansions.user.js)
+
+Changes links to board games in profile 'Games' tab to exclude expansions, but also adds a link 
+which includes expansions to each item in the list.
+
 ##### [Remember Dashboard State](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/rememberDashboardState.user.js)
 
 Remember and restore dashboard dropdowns state between visits to the dashboard.
