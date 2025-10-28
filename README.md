@@ -117,6 +117,11 @@ Changes links in user profiles to show a 'small gallery' cover view instead of t
 Adds the [SPLU](https://boardgamegeek.com/guild/3403) play logger via a userscript, and makes the "Log Play" BGG button trigger the SPLU 
 to launch.
 
+##### [Add Trade Condition to For Trade Views](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/tradeConditionLinks.user.js)
+
+Adds the trade condition column to 'For Trade' collection views (when going to them 
+through profile links).
+
 ##### [Version Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/versionLinks.user.js)
 
 Adds 'links' to version column in collection views.
