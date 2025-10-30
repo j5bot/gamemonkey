@@ -108,6 +108,10 @@ Remember and restore dashboard dropdowns state between visits to the dashboard.
 When viewing file pages, attempts to sort official rules / rules to the top (for the current 
 page of files).
 
+##### [Select All Add-ons Button (Sleeve It)](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/selectAllAddOns.user.js)
+
+When using the "Sleeve It" button/tab, add a button which selects all Add-ons.
+
 ##### [Small Gallery Collection Links](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/smallGalleryCollectionLinks.user.js)
 
 Changes links in user profiles to show a 'small gallery' cover view instead of text list by default.
