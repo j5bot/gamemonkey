@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         BGG Hover Preview via API
 // @namespace    http://github.com/j5bot/gamemonkey
-// @version      0.2.2
+// @version      0.3
 // @author       KuzKuz, j5bot
 // @description  Show a preview of a boardgame when hovering a BGG link using XML API2
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=boardgamegeek.com
 // @match        https://boardgamegeek.com/*
 // @match        https://www.boardgamegeek.com/*
+// @run-at       document-idle
 // @grant        GM_xmlhttpRequest
+// @grant        unsafeWindow
 // @connect      boardgamegeek.com
 // @connect      api.geekdo.com
 // @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameLinkPreview.user.js
@@ -17,7 +19,63 @@
 (function() {
     'use strict';
 
+    const tailwindStylesSelector = `link[href*="styles-"][rel="stylesheet"]`;
+    const hasTailwind = !!document.querySelector(tailwindStylesSelector);
+
+    const tailwindCSS = `
+.tw-absolute {
+    position: absolute;
+}
+.tw-p-2 {
+    padding: .5rem!important;
+}
+.tw-bg-white {
+    background-color: #ffffff !important;
+}
+.tw-border-gray-500 {
+    border-color: #c5c0c8 !important;
+}
+.tw-rounded-md {
+    border-radius: .375rem!important;
+}
+.tw-max-w-sm {
+    max-width: 24rem!important;
+}
+.tw-max-w-sm img {
+    max-width: 100%;
+}
+.tw-font-semibold {
+    font-weight: 600!important;
+}
+.tw-text-base {
+    font-size: 1rem!important;
+    line-height: 1.5rem!important;
+}
+.tw-mb-0\.5 {
+    margin-bottom: .125rem!important;
+}
+.tw-text-sm {
+    font-size: .875rem!important;
+    line-height: 1.25rem!important;
+}
+.tw-justify-between {
+    justify-content: space-between!important;
+}
+.tw-flex {
+    display: flex!important;
+}
+.tw-mr-0\.5 {
+    margin-right: .125rem!important;
+}
+.tw-ml-0\.5 {
+    margin-left: .125rem!important;
+}
+    `;
+
+    const bggXMLApiKey = unsafeWindow.bggXMLApiKey ?? JSON.parse(window.localStorage.getItem('gamemonkey-settings'))?.bggXMLApiKey;
+
     let previewBox = null;
+    let style = null;
     let lastRequestTime = 0;
 
     // a map of all the API call results
@@ -48,6 +106,16 @@
         return m ? {type: m[1], id: m[2]} : {};
     }
 
+    function addTailwindStyles() {
+        if (hasTailwind) {
+            return;
+        }
+        style = document.createElement('style');
+        style.setAttribute('type', 'text/css');
+        style.innerText = tailwindCSS;
+        document.head.appendChild(style);
+    }
+
     function createPreviewBox() {
         previewBox = document.createElement("div");
         previewBox.className = "tw-absolute tw-z-1000 tw-bg-white tw-max-w-sm tw-hide tw-p-2" +
@@ -57,6 +125,7 @@
     }
 
     function showPreviewAt(linkEl, html) {
+        if (!style) addTailwindStyles();
         if (!previewBox) createPreviewBox();
         previewBox.innerHTML = html;
         const rect = linkEl.getBoundingClientRect();
@@ -172,7 +241,8 @@
             method: "GET",
             url: url,
             headers: {
-                "Accept": "application/xml"
+                "Accept": "application/xml",
+                "Authorization": `Bearer ${bggXMLApiKey}`
             },
             onload,
             onerror: function(err) {
@@ -190,6 +260,10 @@
 
         link.addEventListener("mouseenter", () => {
             hoverTimer = setTimeout(() => {
+                if (!bggXMLApiKey) {
+                    console.log(bggXMLApiKey, 'no xml api key found, cannot use the hover preview script');
+                    return;
+                }
                 fetchThing(type, id, (data) => {
                     const html = buildPreviewHtml(data);
                     showPreviewAt(link, html);
@@ -203,15 +277,25 @@
         });
     }
 
-    function init() {
-        const links = document.querySelectorAll(thingTypeLinkSelector);
+    function init(rawLinks) {
+        const links = rawLinks ?? document.querySelectorAll(thingTypeLinkSelector);
         links.forEach((link, index, array) => {
             attachHover(link, index, array);
         });
     }
 
-    init();
-    const mo = new MutationObserver(init);
-    mo.observe(document.body, { subtree: true, childList: true });
-
+    if (unsafeWindow.gamemonkey) {
+        console.log('Hover preview init via gamemonkey base script...');
+        unsafeWindow.gamemonkey.scriptObservers.push({
+            selector: thingTypeLinkSelector,
+            fn: init
+        });
+    } else {
+        console.log('Hover preview init directly...');
+        init();
+        setTimeout(() => {
+            const mo = new MutationObserver(init);
+            mo.observe(document.body, { subtree: true, childList: true });
+        }, 1000);
+    }
 })();
