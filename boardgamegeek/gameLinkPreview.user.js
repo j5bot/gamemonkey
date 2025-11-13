@@ -9,6 +9,7 @@
 // @match        https://www.boardgamegeek.com/*
 // @run-at       document-idle
 // @grant        GM_xmlhttpRequest
+// @grant        GM_openInTab
 // @grant        unsafeWindow
 // @connect      boardgamegeek.com
 // @connect      api.geekdo.com
@@ -73,6 +74,12 @@
     `;
 
     const bggXMLApiKey = unsafeWindow.bggXMLApiKey ?? JSON.parse(window.localStorage.getItem('gamemonkey-settings'))?.bggXMLApiKey;
+    if (!bggXMLApiKey) {
+        const getScript = unsafeWindow.confirm('Get GameMonkey base script?');
+        if (getScript) {
+            GM_openInTab('https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gamemonkey.user.js');
+        }
+    }
 
     let previewBox = null;
     let style = null;
