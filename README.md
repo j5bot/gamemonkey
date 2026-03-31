@@ -28,6 +28,10 @@ Install the TamperMonkey browser extension:
 When uploading files to BGG, extract the filename up to the first '.' and set the caption to 
 that string automatically
 
+##### [Collection Column Widths](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/collectionColumnWidths.user.js)
+
+Adjust the column widths in collection views to your desired widths.  Saves widths in local storage so they persist between visits.
+
 ##### [Default Wishlist Sort to Ascending](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/sortWishlistLinks.user.js)
 
 For links to wishlists from a user's profile page, default the sort to ascending by wishlist 
