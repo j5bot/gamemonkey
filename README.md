@@ -23,6 +23,13 @@ Install the TamperMonkey browser extension:
 
 ### BoardGameGeek
 
+#### API Key
+
+Some scripts which use the BGG API require an API key.  You can get one for free by following the instructions here:
+[Using the XML API](https://boardgamegeek.com/using_the_xml_api).
+
+These are marked in the list below with 🔑.
+
 ##### [Auto-Caption Uploads from Filename](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/autoCaptionUploads.user.js)
 
 When uploading files to BGG, extract the filename up to the first '.' and set the caption to 
@@ -49,12 +56,12 @@ Includes BGG's eBay parameters so that they continue to get commissions from sal
 When viewing a collection in a list view, with the status column visible, move wishlist 'Do Not 
 Buy' rows to the bottom of the page, and fade them so they are less visible than other rows.
 
-##### [Game Link Preview on Hover](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameLinkPreview.user.js)
+##### 🔑 [Game Link Preview on Hover](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameLinkPreview.user.js)
 
 When viewing pages with links to game/expansion/etc. items, hovering over a link shows a preview 
 of the item.
 
-##### [Gameplay Age](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gameplayAge.user.js)
+##### 🔑 [Gameplay Age](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gameplayAge.user.js)
 
 Add the number of years since you have played a game to the collection view 'Plays' column.
 
