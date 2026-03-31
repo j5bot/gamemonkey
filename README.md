@@ -105,6 +105,10 @@ Add previews to image file uploads.
 
 Changes links in user profiles to show a 'large gallery' cover view instead of text list by default.
 
+##### 🔑 [Last Play Date](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/lastPlayDate.user.js)
+
+Add the date of the last play of a game to the collection view 'Plays' column.
+
 ##### [Profile Dropdown Links without Expansions](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/profileDropdownLinksWithoutExpansions.user.js)
 
 Changes links to collection and wishlist in profile dropdown to exclude expansions.
