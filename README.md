@@ -54,6 +54,10 @@ Buy' rows to the bottom of the page, and fade them so they are less visible than
 When viewing pages with links to game/expansion/etc. items, hovering over a link shows a preview 
 of the item.
 
+##### [Gameplay Age](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gameplayAge.user.js)
+
+Add the number of years since you have played a game to the collection view 'Plays' column.
+
 ##### [Geeklist Thumbnail Collage (Square)](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/geeklistThumbCollage.user.js)
 
 Create a grid collage layout out of the geeklist item images in a list.  After making the grid, 
