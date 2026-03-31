@@ -61,7 +61,7 @@ Buy' rows to the bottom of the page, and fade them so they are less visible than
 When viewing pages with links to game/expansion/etc. items, hovering over a link shows a preview 
 of the item.
 
-##### 🔑 [Gameplay Age](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gameplayAge.user.js)
+##### 🔑 [Gameplay Age](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameplayAge.user.js)
 
 Add the number of years since you have played a game to the collection view 'Plays' column.
 
@@ -105,7 +105,7 @@ Add previews to image file uploads.
 
 Changes links in user profiles to show a 'large gallery' cover view instead of text list by default.
 
-##### 🔑 [Last Play Date](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/lastPlayDate.user.js)
+##### 🔑 [Last Play Date](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/lastPlayDate.user.js)
 
 Add the date of the last play of a game to the collection view 'Plays' column.
 

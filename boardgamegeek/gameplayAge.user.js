@@ -11,8 +11,8 @@
 // @grant        GM_xmlhttpRequest
 // @connect      boardgamegeek.com
 // @run-at       document-end
-// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gameplayAge.user.js
-// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/base/gameplayAge.user.js
+// @downloadURL  https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameplayAge.user.js
+// @updateURL    https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/gameplayAge.user.js
 // ==/UserScript==
 (function () {
     const bggXMLApiKey = unsafeWindow.bggXMLApiKey ?? JSON.parse(window.localStorage.getItem('gamemonkey-settings'))?.bggXMLApiKey;
