@@ -30,6 +30,10 @@ Some scripts which use the BGG API require an API key.  You can get one for free
 
 These are marked in the list below with 🔑.
 
+##### [Add Family Input to Advanced Search](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/addFamilyInput.user.js)
+
+Add a searchable input for 'Family' to the advanced search page.
+
 ##### [Auto-Caption Uploads from Filename](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/autoCaptionUploads.user.js)
 
 When uploading files to BGG, extract the filename up to the first '.' and set the caption to 
