@@ -156,3 +156,9 @@ Adds 'links' to version column in collection views.
 ##### [Version Links (My Games)](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/versionLinksMyGames.user.js)
 
 Adds links to version names in my games views.
+
+##### [Wishlist Emoji in Rating Column](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/wishlistRating.user.js)
+
+Adds an emoji to the rating column in collection views for items on the wishlist, with the emoji 
+depending on the wishlist priority: 🟢 Must Have, ❤️ Love to Have, 🩷 Like to Have, 🧠 Thinking 
+About It, 🚫 Don't Buy This.
