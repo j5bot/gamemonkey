@@ -162,3 +162,9 @@ Adds links to version names in my games views.
 Adds an emoji to the rating column in collection views for items on the wishlist, with the emoji 
 depending on the wishlist priority: 🟢 Must Have, ❤️ Love to Have, 🩷 Like to Have, 🧠 Thinking 
 About It, 🚫 Don't Buy This.
+
+### OLWLG
+
+##### [Anti-Arbitrage](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/olwlg/anti-arbitrage.user.js)
+
+Upon confirmation, unchecks boxes in wants matrix that are possibly arbitrage (cash for cash).
