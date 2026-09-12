@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BGG GeekMarket Load Filterable Page & Store Filters
 // @namespace    http://github.com/j5bot/gamemonkey
-// @version      1.0.0
+// @version      1.1.0
 // @description  Add filter saving to BGG GeekMarket pages
 // @author       TheCookieCats
 // @match        https://boardgamegeek.com/*
@@ -28,6 +28,18 @@
             filterAndSortParams: {},
         });
 
+    const transferParams = (currentURL, nextURL) => {
+        const currentParams = currentURL.searchParams;
+        const nextParams = nextURL.searchParams;
+
+        const { filterAndSortParams } = separateParams(currentParams);
+
+        Object.entries(filterAndSortParams).forEach(([key, value]) => {
+            nextParams.set(key, value);
+        });
+        nextParams.set('automarket', '1');
+        window.location.href = nextURL.toString();
+    };
 
     window.navigation.addEventListener('navigate', event => {
         const nextURL = new URL(event.destination.url);
@@ -46,6 +58,9 @@
                 const params = nextURL.searchParams;
 
                 if (params.get('automarket') !== '1') {
+                    if (window.location.pathname.startsWith('/market/browse')) {
+                        transferParams(new URL(window.location.href), nextURL);
+                    }
                     return;
                 }
                 const { baseParams, filterAndSortParams } = separateParams(params);
