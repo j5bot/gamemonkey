@@ -106,6 +106,10 @@ the grid, you can take a screenshot for use elsewhere.
 
 4. Screenshot!
 
+##### [Geekmarket Saved Views](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/geekmarketSavedViews.user.js)
+
+Create and save filter views on the Geekmarket
+
 ##### [Image Upload Preview](https://raw.githubusercontent.com/j5bot/gamemonkey/refs/heads/main/boardgamegeek/imageUploadPreview.user.js)
 
 Add previews to image file uploads.
